@@ -1,0 +1,149 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:BindingCrashCourse.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:local="clr-namespace:BindingCrashCourse"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+		        Background="PaleVioletRed"
+        x:Class="BindingCrashCourse.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="BindingCrashCourse">
+
+	<!--Sets the DataContext property to a new instance of our ViewModel class, BindingPlayGroundViewModel-->
+	<Window.DataContext>
+		<vm:BindingPlayGroundViewModel/>
+	</Window.DataContext>
+
+	<Grid>
+		<!--Start Of Grid Definitions-->
+		<Grid.RowDefinitions>
+			<RowDefinition Height="2*"/>
+			<RowDefinition Height="10*"/>
+			<RowDefinition Height="2*"/>
+			<RowDefinition Height="10*"/>
+			<RowDefinition Height="2*"/>
+			<RowDefinition Height="2*"/>
+			<RowDefinition Height="2*"/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="27*"/>
+			<ColumnDefinition Width="5*"/>
+		</Grid.ColumnDefinitions>
+		<!--End Of Grid Definitions-->
+
+		<!--Start of TreeView Example-->
+		<TextBlock Grid.Row="0"
+				   Foreground="Black"
+                   VerticalAlignment="Center"
+                   TextAlignment="Center"
+                   Text="TreeView Binding Sample"/>
+		<TreeView Name="GroupView"
+                  Grid.Row="1"
+                  Items="{Binding HierarchicalDataSource}"
+                  Background="Pink">
+			<TreeView.ItemTemplate>
+				<!--The Tree Data Template Recursively Runs Through the TreeObject and fills the treeview-->
+				<TreeDataTemplate DataType="{x:Type local:TreeObject}"
+                                          ItemsSource="{Binding Children}">
+					<TextBlock Text="{Binding Path=NodeName}" Foreground="Black"/>
+				</TreeDataTemplate>
+			</TreeView.ItemTemplate>
+		</TreeView>
+		<!--End of TreeView Example-->
+
+		<!--Start Of ListBox Binding Sample-->
+		<TextBlock Grid.Row="2"
+                   TextAlignment="Center"
+                   VerticalAlignment="Center"
+                   Background="PaleVioletRed"
+				   Foreground="Black"
+                   Text="ListBox Binding Sample"/>
+		<!--OneWay Binding is used on the listbox, meaning the ListBox can read the Property RandomInt, but not write it.-->
+		<ListBox Grid.Row="3"
+                 Grid.ColumnSpan="1"
+                 Background="Pink"
+				 Foreground="Black"
+                 Items="{Binding RandomInts, Mode=OneWay}"/>
+		<Button Click="Click_GenerateRandomInts"
+				HorizontalAlignment="Stretch"
+				VerticalAlignment="Stretch"
+				HorizontalContentAlignment="Center"
+				VerticalContentAlignment="Center"
+                Background="PaleVioletRed"
+                Grid.Row="3"
+                Grid.Column="1"
+				Foreground="Black"
+                Content="Random Integers"/>
+		<!--End Of ListBox Binding Sample-->
+
+		<!--Start Of TextBlock/TextBox Binding Sample-->
+		<TextBlock Grid.Row="4"
+                   Grid.Column="0"
+                   VerticalAlignment="Center"
+                   TextAlignment="Center"
+                   Background="PaleVioletRed"
+				   Foreground="Black"
+                   Text="TextBox and TextBlock Binding Example"/>
+		<Grid Grid.Row="5"
+              Grid.Column="0"
+              Grid.ColumnSpan="2"
+              Grid.RowSpan="2">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="126*"/>
+				<ColumnDefinition Width="561*"/>
+				<ColumnDefinition Width="126*"/>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition/>
+				<RowDefinition/>
+			</Grid.RowDefinitions>
+			<TextBlock Background="PaleVioletRed"
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       Text="TextBlock"
+                       TextAlignment="Center"
+						Foreground="Black"/>
+			<TextBlock Background="PaleVioletRed"
+                       Grid.Column="0"
+                       Text="TextBox"
+					   Foreground="Black"
+                       TextAlignment="Center" Margin="0,32,0,0" Grid.RowSpan="2"/>
+			<!--One Way Binding is used again to bind a string to the TextBlock, both getting the value and keeping it updated from the variable-->
+			<TextBlock Grid.Row="0"
+                       Grid.Column="1"
+                       TextAlignment="Center"
+                       Background="Pink"
+					   Foreground="Black"
+                       Text="{Binding JustAString, Mode=OneWay}"/>
+			<!--TwoWay binding is used on the TextBox in order to allow Read/Write access on the property JustAString-->
+			<TextBox
+                     Grid.Column="1"
+                     TextAlignment="Center"
+                     Background="Pink"
+					 Foreground="Black"
+                     Text="{Binding JustAString, Mode=TwoWay}" Margin="0,32,0,0" Grid.RowSpan="2"/>
+			<Button Click="Click_GenerateRandomInt"
+				HorizontalAlignment="Stretch"
+				VerticalAlignment="Stretch"
+				HorizontalContentAlignment="Center"
+				VerticalContentAlignment="Center"
+                Background="PaleVioletRed"
+				Foreground="Black"
+                Grid.Row="0"
+                Grid.Column="2"
+                Content="Generate Random Int"/>
+			<Button Click="Click_PrintJustAString"
+				HorizontalAlignment="Stretch"
+				VerticalAlignment="Stretch"
+				HorizontalContentAlignment="Center"
+				VerticalContentAlignment="Center"
+                Background="PaleVioletRed"
+                Grid.Row="1"
+                Grid.Column="2"
+				Foreground="Black"
+                Content="Print JustAString"/>
+		</Grid>
+		<!--End Of TextBlock/TextBox Binding Sample-->
+	</Grid>
+</Window>
