@@ -5,6 +5,10 @@ using Avalonia.Markup.Xaml;
 using BindingCrashCourse.ViewModels;
 using System;
 using MessageBox.Avalonia;
+using System.Xml.Linq;
+using System.Collections.Generic;
+using BindingCrashCourse.Models;
+using System.Linq;
 
 namespace BindingCrashCourse.Views
 {
@@ -28,6 +32,15 @@ namespace BindingCrashCourse.Views
         public MainWindow()
         {
             InitializeComponent();
+
+            var root = XElement.Load("c0000.xml");
+            var rootModel = new XElementModel(root, null);
+            UsefulFunctions.XElementRootToXElementModel(root, rootModel);
+
+            var listModels = new List<XElementModel>();
+            listModels.Add(rootModel);
+            ViewModel.XmlDataSource = listModels;
+
 #if DEBUG
             this.AttachDevTools();
 #endif

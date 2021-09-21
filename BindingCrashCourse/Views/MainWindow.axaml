@@ -1,5 +1,6 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:models="using:BindingCrashCourse.Models"
         xmlns:vm="using:BindingCrashCourse.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -40,13 +41,13 @@
                    Text="TreeView Binding Sample"/>
 		<TreeView Name="GroupView"
                   Grid.Row="1"
-                  Items="{Binding HierarchicalDataSource}"
+                  Items="{Binding XmlDataSource}"
                   Background="Pink">
 			<TreeView.ItemTemplate>
 				<!--The Tree Data Template Recursively Runs Through the TreeObject and fills the treeview-->
-				<TreeDataTemplate DataType="{x:Type local:TreeObject}"
+				<TreeDataTemplate DataType="{x:Type models:XElementModel}"
                                           ItemsSource="{Binding Children}">
-					<TextBlock Text="{Binding Path=NodeName}" Foreground="Black"/>
+					<TextBlock Text="{Binding Name}" Foreground="Black"/>
 				</TreeDataTemplate>
 			</TreeView.ItemTemplate>
 		</TreeView>

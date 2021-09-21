@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BindingCrashCourse.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -18,6 +19,20 @@ namespace BindingCrashCourse.ViewModels
             set
             {
                 _HierarchicalDataSource = value;
+                NotifyPropertyChanged(); //Notifies WPF The Property Has changed and that the binding should be updated in GUI
+            }
+        }
+
+        private List<XElementModel> _XmlDataSource = new List<XElementModel>();
+        public List<XElementModel> XmlDataSource
+        {
+            get
+            {
+                return _XmlDataSource;
+            }
+            set
+            {
+                _XmlDataSource = value;
                 NotifyPropertyChanged(); //Notifies WPF The Property Has changed and that the binding should be updated in GUI
             }
         }
